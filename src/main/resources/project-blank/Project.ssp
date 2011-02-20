@@ -1,0 +1,30 @@
+<%@ var liftversion:String %>
+<%@ var cappuccinoversion:String %>
+
+import sbt._
+
+class CardanoProject(info: ProjectInfo) extends DefaultWebProject(info) {
+
+  val scalatoolsRelease = "Scala Tools Snapshot" at
+  "http://scala-tools.org/repo-releases/"
+
+  val scalatoolsSnapshot = ScalaToolsSnapshots
+
+  val liftVersion = "${liftversion}"
+  val cappuccinoVersion = "${cappuccinoversion}"
+
+  // If you're using JRebel for Lift development, uncomment
+  // this line
+  // override def scanDirectories = Nil
+
+  override def libraryDependencies = Set(
+    "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default",
+    "net.liftweb" %% "lift-testkit" % liftVersion % "compile->default",
+		"org.cappuccino" %% "cappuccino" % cappuccinoVersion,
+    //#inject point: dependencies
+    "org.mortbay.jetty" % "jetty" % "6.1.22" % "test->default",
+    "ch.qos.logback" % "logback-classic" % "0.9.26",
+    "junit" % "junit" % "4.5" % "test->default",
+    "org.scala-tools.testing" %% "specs" % "1.6.6" % "test->default"
+  ) ++ super.libraryDependencies
+}
