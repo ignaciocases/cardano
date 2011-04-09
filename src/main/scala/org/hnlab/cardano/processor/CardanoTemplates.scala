@@ -8,8 +8,10 @@ import org.lifty.processor.LiftHelper._
 import net.liftweb.common._
 
 object CONSTANTS {
-  val LIFTVERSION = "2.3-SNAPSHOT"
+  val LIFTVERSION = "2.3"
 	val CAPPUCCINOVERSION = "0.9"
+	val CAPPUCCINOBUILD = "CAPP_BUILD"
+	val CAPPUCCINOAPP = "Quadra"
 }
 
 trait DefaultLiftTemplate extends Template with Create with Delete {
@@ -46,14 +48,14 @@ object CardanoBlankProject extends DefaultLiftTemplate {
 
   def description = "Creates a blank project using Cappuccino " + CONSTANTS.CAPPUCCINOVERSION + " and Lift " + CONSTANTS.LIFTVERSION
 
-  def arguments = pack :: cappuccinoversion :: liftversion :: Argument("applicationName") :: Nil
+  def arguments = pack :: cappuccinoversion :: cappuccinobuild :: liftversion :: cappuccinoapp :: Nil
 
   def files = {
 		val cappSharedPath = "%s/cappuccino/blank".format(GlobalConfiguration.rootResources)
     val blankProjectPath = "%s/project-blank".format(GlobalConfiguration.rootResources)
 		
 		CardanoHelper.copyFrameworks()
-		CardanoHelper.copyResources()
+		//CardanoHelper.copyResources()
 		
 		//CardanoHelper.prepareFrameworks()
 
@@ -82,6 +84,8 @@ object CardanoBlankProject extends DefaultLiftTemplate {
 
 	object liftversion extends Argument("liftversion") with Default with Value { value = Full(CONSTANTS.LIFTVERSION) }
 	object cappuccinoversion extends Argument("cappuccinoversion") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOVERSION) }
+	object cappuccinobuild extends Argument("cappuccinobuild") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOBUILD) }
+	object cappuccinoapp extends Argument("cappuccinoapp") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOAPP) }
   object pack extends PackageArgument("mainpack") with Default with Value { value = defaultMainPackage }
   
 }
@@ -93,14 +97,14 @@ object CardanoFrothyProject extends DefaultLiftTemplate {
 
   def description = "Creates an example project based on Frothy using Cappuccino " + CONSTANTS.CAPPUCCINOVERSION + " and Lift " + CONSTANTS.LIFTVERSION
 
-  def arguments = pack :: cappuccinoversion :: liftversion :: Argument("applicationName") :: Nil
+  def arguments = pack :: cappuccinoversion :: cappuccinobuild :: liftversion :: cappuccinoapp :: Nil
 
   def files = {
 		val cappSharedPath = "%s/cappuccino/frothy".format(GlobalConfiguration.rootResources)
     val blankProjectPath = "%s/project-blank".format(GlobalConfiguration.rootResources)
 		
 		CardanoHelper.copyFrameworks()
-		CardanoHelper.copyResources()
+		//CardanoHelper.copyResources()
 
     TemplateFile("%s/Project.ssp".format(blankProjectPath), "project/build/Project.scala") ::
       TemplateFile("%s/LiftConsole.scala".format(blankProjectPath), "src/test/scala/LiftConsole.scala") ::
@@ -129,6 +133,8 @@ object CardanoFrothyProject extends DefaultLiftTemplate {
 
 	object liftversion extends Argument("liftversion") with Default with Value { value = Full(CONSTANTS.LIFTVERSION) }
 	object cappuccinoversion extends Argument("cappuccinoversion") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOVERSION) }
+	object cappuccinobuild extends Argument("cappuccinobuild") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOBUILD) }
+	object cappuccinoapp extends Argument("cappuccinoapp") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOAPP) }
   object pack extends PackageArgument("mainpack") with Default with Value { value = defaultMainPackage }
   
 }
@@ -141,20 +147,30 @@ object CPLogger extends ConsoleLogger {
 }
 
 object CardanoHelper {
-	def copyFrameworks() = copy("Frameworks")
-	def copyResources() = copy("Resources")
+	
+	def copyFrameworks() = {
+		val originRelease = System.getenv(CONSTANTS.CAPPUCCINOBUILD) + "/Release"
+		val destinationRelease = "src/main/webapp/Frameworks"
+
+		val originDebug = System.getenv(CONSTANTS.CAPPUCCINOBUILD) + "/Debug"
+		val destinationDebug = "src/main/webapp/Frameworks/Debug"		
+		
+		copy(originRelease, destinationRelease)
+		copy(originDebug, destinationDebug)
+	}
+	//def copyResources() = copy("Resources")
 
 	def prepareFrameworks() = prepare()
 
-	private def copy(resource: String): Unit = {
-		val frameworkSourcePath: Path = sbt.Path.fromFile("/Development/hn/client/Quadra/" + resource)
-		val frameworkDestinationPath: Path = sbt.Path.fromFile(("src/main/webapp/" + resource).format(GlobalConfiguration.rootResources))
+	
+	private def copy(resource: String, destination: String): Unit = {
+		val frameworkSourcePath: Path = sbt.Path.fromFile(resource)
+		val frameworkDestinationPath: Path = sbt.Path.fromFile((destination).format(GlobalConfiguration.rootResources))
 		try {
 			sbt.FileUtilities.copyDirectory(frameworkSourcePath, frameworkDestinationPath, CPLogger)
 		} catch {
 			case e:java.lang.IllegalArgumentException =>
-		}
-		
+		}		
 	}
 	
 	private def prepare(): Unit = {

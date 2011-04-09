@@ -1,4 +1,4 @@
-<%@ var applicationName:String %>
+<%@ var cappuccinoapp:String %>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -6,7 +6,7 @@
 <html xmlns = "http://www.w3.org/1999/xhtml" xml:lang = "en" lang = "en">
   <!--
    index.html
-   {applicationName}
+   {cappuccinoapp}
 
    Created by You on July 5, 2009.
    Copyright 2009, Your Company All rights reserved.
@@ -14,7 +14,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 
-    <title>${applicationName}</title>
+    <title>${cappuccinoapp}</title>
 
 
     <script id="jquery" src="/classpath/jquery.js" type="text/javascript"/>
@@ -51,7 +51,7 @@
       		//<![CDATA[
               document.write("<div id='container'><p id='content'>" +
                              "<img id='loadgraphic' width='16' height='16' src='Resources/spinner.gif' /> " +
-                             "Loading ${applicationName}...</p></div>");
+                             "Loading ${cappuccinoapp}...</p></div>");
       		//]]>
           </script>
   

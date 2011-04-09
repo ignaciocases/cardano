@@ -1,4 +1,5 @@
 <%@ var mainpack:String %>
+<%@ var cappuccinoapp:String %>
 package bootstrap.liftweb
 import _root_.net.liftweb.util._
 import _root_.net.liftweb.common._
@@ -25,7 +26,7 @@ class Boot {
 
     // build sitemap
     val entries = List(Menu("Home") / "index") :::
-									List(Menu("Cappuccino") / "capp") :::
+									List(Menu("${cappuccinoapp}") / "capp") :::
                   //#inject point: sitemap
                   Nil
     
