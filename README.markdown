@@ -46,19 +46,17 @@ Try to generate a new Cappuccino xib with sample integration doing
 
 The processor will ask for some details about the project, with the defaults between square brackets:
 
-`[info] mainpack [org.hnlab]: com.example
+`[info] mainpack [org.hnlab]: com.example`
 
-[info] cappuccinoversion [0.9]: 
+`[info] cappuccinoversion [0.9]: `
 
-[info] cappuccinobuild [CAPP_BUILD]: 
+`[info] cappuccinobuild [CAPP_BUILD]: `
 
-[info] liftversion [2.3]: 2.4-SNAPSHOT
+`[info] liftversion [2.3]: 2.4-SNAPSHOT`
 
-[info] cappuccinoapp [Quadra]: CPTest`
+`[info] cappuccinoapp [Quadra]: CPTest`
 
-The variable `cappuccinobuild` indicates the processor the name of the system variable that points to the local Cappuccino distribution.
-
-Type the info, and after that enter
+The variable `cappuccinobuild` indicates the processor the name of the system variable that points to the local Cappuccino distribution. Type the info, and after that enter
 
 `reload`
 
