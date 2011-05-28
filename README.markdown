@@ -26,9 +26,7 @@ In order to use the processor it is needed to publish it locally, so type
 
 `publish-local`
 
-This compiles the project and places the resulting jar in your local ivy repository.
-
-Remove the existent processor if you have installed cardano previously:
+This compiles the project and places the resulting jar in your local ivy repository. Remove the existent processor if you have installed cardano previously:
 
 `*remove cardano`
 
@@ -46,7 +44,7 @@ Try to generate a new Cappuccino xib with sample integration doing
 
 `cardano create project-xib`
 
-Type the info, and after that enter
+The processor will ask for some details about the project. Type the info, and after that enter
 
 `reload`
 
