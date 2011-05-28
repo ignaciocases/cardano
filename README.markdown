@@ -58,6 +58,8 @@ and
 
 `~prepare-webapp`
 
+Open a web browser and point it to `http://localhost:8080`. There resides the Lift application. Follow the link to start the Cappuccino client.
+
 Templates
 ---------
 
