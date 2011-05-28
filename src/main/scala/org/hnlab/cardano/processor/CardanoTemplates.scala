@@ -174,6 +174,7 @@ object CardanoXibProject extends DefaultLiftTemplate {
 			TemplateFile("%s/Jakefile.ssp".format(cappSharedPath), "src/main/webapp/Jakefile") ::
 			TemplateFile("%s/main.ssp".format(cappSharedPath), "src/main/webapp/main.j") ::
 			TemplateFile("%s/Resources/MainMenu.xib".format(cappSharedPath), "src/main/webapp/Resources/MainMenu.xib") ::
+        TemplateFile("%s/Resources/spinner.gif".format(cappSharedPath), "src/main/webapp/Resources/spinner.gif") ::
       Nil
   }
 
