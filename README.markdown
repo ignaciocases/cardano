@@ -18,7 +18,11 @@ As this project is in its very early beginnings there is no jar in online reposi
 
 `git clone git://github.com/ignaciocases/cardano.git`
 
-Launch the simple build tool by typing `sbt`, and then
+Launch the simple build tool by typing `sbt`, and then update the project
+
+`update`
+
+In order to use the processor it is needed to publish it locally, so type
 
 `publish-local`
 
@@ -71,8 +75,9 @@ To see which templates has Cardano currently available type the following:
 Requirements
 ------------
 
+This processor assumes a local Cappuccino instalation.
 
 Acknowledgements
 ----------------
 
-Thanks to Jerôme Denanot, Mads Hartmann Jensen, and David Pollak for their nice contributions.
+Thanks to Jerôme Denanot, Mads Hartmann Jensen, and David Pollak for their nice contributions. Any blame should be directed to me, of course.
