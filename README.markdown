@@ -44,7 +44,17 @@ Try to generate a new Cappuccino xib with sample integration doing
 
 `cardano create project-xib`
 
-The processor will ask for some details about the project. Type the info, and after that enter
+The processor will ask for some details about the project, with the defaults between square brackets:
+
+`[info] mainpack [org.hnlab]: org.hnlab
+[info] cappuccinoversion [0.9]: 
+[info] cappuccinobuild [CAPP_BUILD]: 
+[info] liftversion [2.3]: 2.4-SNAPSHOT
+[info] cappuccinoapp [Quadra]: CPTest`
+
+The variable `cappuccinobuild` indicates the processor the name of the system variable that points to the local Cappuccino distribution.
+
+Type the info, and after that enter
 
 `reload`
 
@@ -58,7 +68,7 @@ and
 
 `~prepare-webapp`
 
-Open a web browser and point it to `http://localhost:8080`. There resides the Lift application. Follow the link to start the Cappuccino client.
+Open a web browser and point it to `http://localhost:8080` to open the Lift application. Follow the link to start the Cappuccino client.
 
 Templates
 ---------
@@ -75,7 +85,7 @@ To see which templates has Cardano currently available type the following:
 Requirements
 ------------
 
-This processor assumes a local Cappuccino instalation.
+This processor assumes a local Cappuccino installation living in the location designated by the environment variable `CAPP_BUILD`.
 
 Acknowledgements
 ----------------
