@@ -90,7 +90,6 @@ object CardanoBlankProject extends DefaultLiftTemplate {
   
 }
 
-
 object CardanoFrothyProject extends DefaultLiftTemplate {
 
   def name = "project-frothy"
@@ -140,6 +139,55 @@ object CardanoFrothyProject extends DefaultLiftTemplate {
 }
 
 
+object CardanoXibProject extends DefaultLiftTemplate {
+
+  def name = "project-xib"
+
+  def description = "Creates a Xib project using Cappuccino " + CONSTANTS.CAPPUCCINOVERSION + " and Lift " + CONSTANTS.LIFTVERSION
+
+  def arguments = pack :: cappuccinoversion :: cappuccinobuild :: liftversion :: cappuccinoapp :: Nil
+
+  def files = {
+		val cappSharedPath = "%s/cappuccino/xib".format(GlobalConfiguration.rootResources)
+    val blankProjectPath = "%s/project-blank".format(GlobalConfiguration.rootResources)
+		
+		CardanoHelper.copyFrameworks()
+		//CardanoHelper.copyResources()
+
+    TemplateFile("%s/Project.ssp".format(blankProjectPath), "project/build/Project.scala") ::
+      TemplateFile("%s/LiftConsole.scala".format(blankProjectPath), "src/test/scala/LiftConsole.scala") ::
+      TemplateFile("%s/RunWebApp.scala".format(blankProjectPath), "src/test/scala/RunWebApp.scala") ::
+      TemplateFile("%s/default.props".format(blankProjectPath), "src/main/resources/props/default.props") ::
+      TemplateFile("%s/default.html".format(blankProjectPath), "src/main/webapp/templates-hidden/default.html") ::
+      TemplateFile("%s/404.html".format(blankProjectPath), "src/main/webapp/404.html") ::
+      TemplateFile("%s/wizard-all.html".format(blankProjectPath), "src/main/webapp/templates-hidden/wizard-all.html") ::
+      TemplateFile("%s/web.xml".format(blankProjectPath), "src/main/webapp/WEB-INF/web.xml") ::
+      TemplateFile("%s/index.ssp".format(blankProjectPath), "src/main/webapp/index.html") ::
+      TemplateFile("%s/boot.ssp".format(blankProjectPath), "src/main/scala/bootstrap/liftweb/Boot.scala") ::
+      TemplateFile("%s/AppTest.ssp".format(blankProjectPath), "src/test/scala/${mainpack}/AppTest.scala") ::
+			TemplateFile("%s/AppController.ssp".format(cappSharedPath), "src/main/webapp/AppController.j") ::
+			TemplateFile("%s/capp.ssp".format(cappSharedPath), "src/main/webapp/capp.html") ::
+			TemplateFile("%s/capp_debug.ssp".format(cappSharedPath), "src/main/webapp/capp_debug.html") ::
+			TemplateFile("%s/capp_debug_template.ssp".format(cappSharedPath), "src/main/webapp/templates-hidden/capp_debug_template.html") ::
+			TemplateFile("%s/capp_template.ssp".format(cappSharedPath), "src/main/webapp/templates-hidden/capp_template.html") ::
+			TemplateFile("%s/Info.ssp".format(cappSharedPath), "src/main/webapp/Info.plist") ::
+			TemplateFile("%s/Jakefile.ssp".format(cappSharedPath), "src/main/webapp/Jakefile") ::
+			TemplateFile("%s/main.ssp".format(cappSharedPath), "src/main/webapp/main.j") ::
+			TemplateFile("%s/Resources/MainMenu.xib".format(cappSharedPath), "src/main/webapp/Resources/MainMenu.xib") ::
+      Nil
+  }
+
+  override def postRenderAction(arguments: List[ArgumentResult]): Unit = {
+    createFolderStructure(arguments)(org.lifty.processor.LiftHelper.liftFolderStructure: _*)
+  }
+
+	object liftversion extends Argument("liftversion") with Default with Value { value = Full(CONSTANTS.LIFTVERSION) }
+	object cappuccinoversion extends Argument("cappuccinoversion") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOVERSION) }
+	object cappuccinobuild extends Argument("cappuccinobuild") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOBUILD) }
+	object cappuccinoapp extends Argument("cappuccinoapp") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOAPP) }
+  object pack extends PackageArgument("mainpack") with Default with Value { value = defaultMainPackage }
+  
+}
 
 
 object CPLogger extends ConsoleLogger {

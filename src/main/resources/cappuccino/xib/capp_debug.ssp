@@ -1,0 +1,11 @@
+<lift:surround with="capp_debug_template" at="content">
+  <script type = "text/javascript">
+    // <![CDATA[
+      OBJJ_MAIN_FILE = "main.j";
+      OBJJ_INCLUDE_PATHS = ["Frameworks/Debug", "Frameworks", "SomethingElse"];
+    // ]]>
+  </script>
+
+
+
+</lift:surround>
