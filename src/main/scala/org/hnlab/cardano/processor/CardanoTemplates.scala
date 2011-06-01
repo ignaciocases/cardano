@@ -11,7 +11,7 @@ object CONSTANTS {
   val LIFTVERSION = "2.3"
 	val CAPPUCCINOVERSION = "0.9"
 	val CAPPUCCINOBUILD = "CAPP_BUILD"
-	val CAPPUCCINOAPP = "Quadra"
+	val CAPPUCCINOAPP = "CardanoApp"
 }
 
 trait DefaultLiftTemplate extends Template with Create with Delete {
@@ -70,6 +70,7 @@ object CardanoBlankProject extends DefaultLiftTemplate {
       TemplateFile("%s/index.ssp".format(blankProjectPath), "src/main/webapp/index.html") ::
       TemplateFile("%s/boot.ssp".format(blankProjectPath), "src/main/scala/bootstrap/liftweb/Boot.scala") ::
       TemplateFile("%s/AppTest.ssp".format(blankProjectPath), "src/test/scala/${mainpack}/AppTest.scala") ::
+	  TemplateFile("%s/favicon.ico".format(cappSharedPath), "src/main/webapp/favicon.ico") ::
 			TemplateFile("%s/capp_template.ssp".format(cappSharedPath), "src/main/webapp/templates-hidden/capp_template.html") ::
 			TemplateFile("%s/capp.html".format(cappSharedPath), "src/main/webapp/capp.html") ::
 			TemplateFile("%s/AppController.j".format(cappSharedPath), "src/main/webapp/AppController.j") ::
@@ -116,6 +117,7 @@ object CardanoFrothyProject extends DefaultLiftTemplate {
       TemplateFile("%s/index.ssp".format(blankProjectPath), "src/main/webapp/index.html") ::
       TemplateFile("%s/boot.ssp".format(blankProjectPath), "src/main/scala/bootstrap/liftweb/Boot.scala") ::
       TemplateFile("%s/AppTest.ssp".format(blankProjectPath), "src/test/scala/${mainpack}/AppTest.scala") ::
+	  TemplateFile("%s/favicon.ico".format(cappSharedPath), "src/main/webapp/favicon.ico") ::
 			TemplateFile("%s/capp_template.ssp".format(cappSharedPath), "src/main/webapp/templates-hidden/capp_template.html") ::
 			TemplateFile("%s/capp.html".format(cappSharedPath), "src/main/webapp/capp.html") ::
 			TemplateFile("%s/CPAjaxCall.ssp".format(cappSharedPath), "src/main/scala/${mainpack}/snippet/CPAjaxCall.scala") ::
@@ -165,6 +167,7 @@ object CardanoXibProject extends DefaultLiftTemplate {
 	TemplateFile("%s/index.ssp".format(blankProjectPath), "src/main/webapp/index.html") ::
 	TemplateFile("%s/boot.ssp".format(blankProjectPath), "src/main/scala/bootstrap/liftweb/Boot.scala") ::
 	TemplateFile("%s/AppTest.ssp".format(blankProjectPath), "src/test/scala/${mainpack}/AppTest.scala") ::
+	TemplateFile("%s/favicon.ico".format(cappSharedPath), "src/main/webapp/favicon.ico") ::
 	TemplateFile("%s/AppController.ssp".format(cappSharedPath), "src/main/webapp/AppController.j") ::
 	TemplateFile("%s/capp.ssp".format(cappSharedPath), "src/main/webapp/capp.html") ::
 	TemplateFile("%s/capp_debug.ssp".format(cappSharedPath), "src/main/webapp/capp_debug.html") ::
