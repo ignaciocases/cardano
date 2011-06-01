@@ -11,6 +11,8 @@ import http.{LiftRules, NotFoundAsTemplate, ParsePath}
 import sitemap.{SiteMap, Menu, Loc}
 import util.{ NamedPF }
 
+import net.liftweb.http.js.jquery.JQuery14Artifacts
+
 //#inject point: imports
 
 
@@ -39,6 +41,8 @@ class Boot {
     // set character encoding
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
     
+    LiftRules.jsArtifacts = JQuery14Artifacts
+
     //#inject point: bottom
     
 
