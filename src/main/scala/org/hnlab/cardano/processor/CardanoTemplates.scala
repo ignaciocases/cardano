@@ -42,6 +42,35 @@ object SnippetTemplate extends DefaultLiftTemplate {
   }
 }
 
+/**
+ * Template for a model class implemented using Mapper. It provides basic functionality
+ * that would expect from a User.
+ */
+object UserTemplate extends DefaultLiftTemplate {
+
+  def name = "user"
+
+  def description = "Template for a model class implemented using Mapper. It provides basic functionality that would expect from a User"
+
+  def arguments = pack :: Nil
+
+  val path = "%s/user".format(GlobalConfiguration.rootResources)
+
+  def files = TemplateFile(
+    "%s/user.ssp".format(path),
+    "src/main/scala/${modelpack}/User.scala") :: Nil
+
+  injectContentsOfFile("%s/boot_import_injections_user.ssp".format(path)) into ("boot.ssp") at ("imports")
+  injectContentsOfFile("%s/boot_sitemap_injections_user.txt".format(path)) into ("boot.ssp") at ("sitemap")
+  injectContentsOfFile("%s/boot_bottom_injections_user.txt".format(path)) into ("boot.ssp") at ("bottom")
+  injectContentsOfFile("%s/boot_top_injections_user.txt".format(path)) into ("boot.ssp") at ("top")
+  injectContentsOfFile("%s/ProjectDefinition_dependencies_injections_user.txt".format(path)) into ("Project.ssp") at ("dependencies")
+
+  object pack extends PackageArgument("modelpack") with Default with Value {
+    value = searchForPackageInBoot("src/main/scala/bootstrap/liftweb/Boot.scala", Full(".model"))
+  }
+}
+
 object CardanoBlankProject extends DefaultLiftTemplate {
 
   def name = "project-blank"
@@ -154,7 +183,6 @@ object CardanoXibProject extends DefaultLiftTemplate {
     val blankProjectPath = "%s/project-blank".format(GlobalConfiguration.rootResources)
 		
 	CardanoHelper.copyFrameworks()
-	//CardanoHelper.copyResources()
 
 	TemplateFile("%s/Project.ssp".format(blankProjectPath), "project/build/Project.scala") ::
 	TemplateFile("%s/LiftConsole.scala".format(blankProjectPath), "src/test/scala/LiftConsole.scala") ::
@@ -191,6 +219,39 @@ object CardanoXibProject extends DefaultLiftTemplate {
 	object cappuccinoapp extends Argument("cappuccinoapp") with Default with Value { value = Full(CONSTANTS.CAPPUCCINOAPP) }
   object pack extends PackageArgument("mainpack") with Default with Value { value = defaultMainPackage }
   
+}
+
+object CardanoProject extends DefaultLiftTemplate {
+
+  override def dependencies = CardanoXibProject :: UserTemplate :: Nil
+
+  def name = "project"
+
+  def description = "Creates a Xib-project using Cappuccino " + CONSTANTS.CAPPUCCINOVERSION + " and Lift " + CONSTANTS.LIFTVERSION + " with user functionality"
+
+  def arguments = mainPackage :: Nil
+
+  override def postRenderAction(arguments: List[ArgumentResult]): Unit = {
+    createFolderStructure(arguments)(org.lifty.processor.LiftHelper.liftFolderStructure: _*)
+  }
+
+  val path = "%s/basic-cardano-project".format(GlobalConfiguration.rootResources)
+
+  def files = {
+    TemplateFile("%s/index-static.html".format(path), "src/main/webapp/static/index.html") ::
+      TemplateFile("%s/helloworld.ssp".format(path), "src/main/scala/${mainpack}/snippet/HelloWorld.scala") ::
+      TemplateFile("%s/HelloWorldTest.ssp".format(path), "src/test/scala/${mainpack}/snippet/HelloWorldTest.scala") ::
+      Nil
+  }
+
+  injectContentsOfFile("%s/boot_import_injections.ssp".format(path)) into ("boot.ssp") at ("imports")
+  injectContentsOfFile("%s/boot_bottom_injections.ssp".format(path)) into ("boot.ssp") at ("bottom")
+  injectContentsOfFile("%s/boot_sitemap_injections.ssp".format(path)) into ("boot.ssp") at ("sitemap")
+  injectContentsOfFile("%s/index_content_injections.ssp".format(path)) into ("index.ssp") at ("content")
+  injectContentsOfFile("%s/ProjectDefinition_dependencies_injections.ssp".format(path)) into ("Project.ssp") at ("dependencies")
+
+  object mainPackage extends PackageArgument("mainpack") with Default with Value { value = defaultMainPackage }
+
 }
 
 

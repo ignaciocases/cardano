@@ -10,5 +10,6 @@ import org.lifty.engine._
  */
 
 class Cardano extends SBTTemplateProcessor {
-  def templates = CardanoBlankProject :: CardanoFrothyProject :: CardanoXibProject:: Nil
+  def templates = CardanoBlankProject :: CardanoFrothyProject :: 
+									CardanoXibProject :: CardanoProject :: Nil
 }
